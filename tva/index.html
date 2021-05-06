@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TVA JS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	body {
+		margin: 0; padding: 0;
+		box-sizing: border-box;
+		font-size: 20px;
+		line-height: 1.5;
+	}
+
+	.wrap {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		text-align: center;
+		height: 100vh;
+	}
+
+	p.info {
+		color: #787878;
+	}
+
+	form#calculTva {
+		/*width: 600px;*/
+		padding: 20px;
+	}
+
+	.form-row {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 10px;
+	}
+
+		.form-row label {
+			width: calc(100% - 200px - 15px);
+			text-align: right;
+		}
+
+		.form-row input {
+			width: 200px;
+			text-align: right;
+			margin-left: 15px;
+			align-self: flex-end;
+		}
+
+		.form-row input:disabled {
+			background: rgba(0, 200, 0, .09);
+			color: #333;
+		}
+
+		.form-row input.background-1 {
+			background: rgba(200, 0, 0, .06);
+			color: #333;
+		}
+
+		.form-row input.background-2 {
+			background: rgba(0, 0, 200, .06);
+			color: #333;
+		}
+
+		.form-row label > span {
+			display: block;
+			opacity: .6;
+			font-size: 70%;
+		}
+
+	form#calculTva input {
+		border: 1px solid rgba(0, 0, 0, .09);
+		padding: 10px 10px;
+		font-size: 20px;
+		line-height: 1;
+	}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+	<h3>Extragere TVA dintr-un numar (pret)</h3>
+	<p class="info">1. Se introduce un numar (Pret initial)<br>
+		2. Se afla valoarea TVA (Formula de calcul: Pret Initial x Cota TVA : 100)<br>
+		3. Se afla valoarea cu TVA (Formula de calcul: Pret Initial + Valoare TVA)
+	</p>
+	<form id="calculTva" action="">
+		<div class="form-row">
+			<label for="pretInitial">Pret initial <span>(fara TVA)</span></label>
+			<input type="text" name="pretInitial" id="pretInitial" value="100" placeholder="Introduceti pret" onkeyup="pretCuTVA()"><br>
+		</div><!-- form-row -->
+
+		<div class="form-row">
+			<label for="valoareTva">Cota TVA (%) <span>Initial 19%, se poate modifica</span></label>
+			<input type="text" class="background-1" name="cotaTva" id="cotaTva" value="19" onkeyup="pretCuTVA()"><br>
+		</div><!-- form-row -->
+
+		<div class="form-row">
+			<label for="valoareTva">Valoare TVA <span>(Pret initial &times; Cota Tva / 100)</span></label>
+			<input type="text" class="background-2" name="valoareTva" id="valoareTva" disabled><br>
+		</div><!-- form-row -->
+
+		<div class="form-row">
+			<label for="valoareCuTva">Valoare cu TVA <span>(Pret initial + Valoare TVA)</span></label>
+			<input type="text" name="valoareCuTva" id="valoareCuTva" disabled><br>
+		</div><!-- form-row -->
+	</form>
+
+</div><!-- wrap -->
+
+<script>
+	// Functia va rula la ridicarea tastei cand se tasteaza numarul in input
+	// onkeyup="pretCuTVA()"
+	// Referinta: https://www.w3schools.com/jsref/event_onkeyup.asp
+
+	function pretCuTVA(){
+
+		// Pretul initial introdus (fara TVA)
+		// Se preia valoarea introdusa cu element.value
+		// Referinta: https://www.w3schools.com/jsref/prop_text_value.asp
+			let pretInitial = document.getElementById('pretInitial').value;
+
+		// Afla cota TVA. Initial este 19, dar se poate modifica
+			let cotaTva = document.getElementById('cotaTva').value;
+
+		// let aflaValoareTva = pretInitial * 19 / 100;
+			let aflaValoareTva = pretInitial * cotaTva / 100;
+
+		// Unde sa afiseze valoarea (input#valoareTva)
+			let valoareTva = document.getElementById('valoareTva');
+
+		// Afiseaza valoarea TVA
+			valoareTva.value = aflaValoareTva;
+
+		// Aflam valoarea cu TVA (Pret initial + valoare TVA)
+			let aflaValoareCuTva = Number(pretInitial) + Number(aflaValoareTva);
+
+		// Unde sa afiseze
+			let valoareCuTva = document.getElementById('valoareCuTva');
+			valoareCuTva.value = aflaValoareCuTva;
+	}
+</script>
+
+</body>
+</html>
