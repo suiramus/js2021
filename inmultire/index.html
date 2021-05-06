@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>JS Function and For Loop: Inmultirea</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	.wrap {
+		max-width: 1200px;
+		margin: 20px auto; /*centram*/
+		display: flex;
+		flex-wrap: wrap;
+		font-size: 18px;
+		font-family: Arial, sans-serif;
+	}
+	.box {
+		width: calc(100% / 5 - 10px);
+		background: #EFEFEF;
+		margin: 5px;
+		box-sizing: border-box;
+		text-align: right;
+	}
+
+	.box h3 {
+		padding: 8px 15px;
+		margin: 0;
+		background: #333;
+		color: #FFF;
+		font-size: 20px;
+		line-height: 1;
+		font-weight: normal;
+	}
+
+	.box ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.box ul li {padding: 8px 15px;}
+	.box ul li:nth-child(2n) {background: rgba(0,0,0,.07);}
+
+	@media screen and (max-width: 1200px) {
+		.box {width: calc(100% / 4 - 10px); }
+	} /* 1200px */
+
+	@media screen and (max-width: 800px) {
+		.box {width: calc(100% / 3 - 10px); }
+	} /* 800px */
+
+	@media screen and (max-width: 600px) {
+		.box {width: calc(100% / 2 - 10px); }
+	} /* 600px */
+
+	/* Stilurile de mai sus au doar rol de prezentare, nu e nimic necesar */
+</style>
+
+</head>
+<body>
+
+	<div class="wrap" id="afisare">
+		<!-- 
+			Aici vor fi afisate rezultatele inmultirii
+			Structura va fi urmatoarea:
+			<div class="box">
+				<h3>Inmultirea cu 2</h3>
+				<ul>
+					<li>2 × 0 = 0</li>
+					<li>2 × 1 = 2</li>
+					<li>2 × 2 = 4</li>
+					...
+					<li>2 × 10 = 20</li>
+				</ul>
+			</div>
+		 -->
+	</div><!-- .wrap #afisare -->
+
+
+	<script>
+		
+	function inmultire(numarDeInmultit){
+
+		let box = "";
+		box += '<div class="box">';
+		box += '<h3>Inmultirea cu ' + numarDeInmultit + '</h3>';
+		box += '<ul>';
+
+			// Schimbati i<=10, in altceva, de exemplu: i<=20
+			// Apoi verificati schimbarile
+			// In acest caz, 10 reprezinta inmultirea pana la 10
+			for( i = 0; i <= 10; i++ ) {
+				// Aflam rezultatul inmultirii si il stocam in variabila "rezultat"
+				let rezultat = i * numarDeInmultit;
+				// Concatenam rezultatele si le adaugam in variabila "box"
+				// Ex: <li> 2 x 5 = 10 </li>
+				box += '<li>' + numarDeInmultit + ' &times ' + i + ' = ' + rezultat + '</li>';
+			}
+
+		box += '</ul>';
+		box += '</div>';
+		return box;
+
+	} // inmultire() end
+
+	for( x = 0; x <= 19; x++ ) {
+		document.getElementById("afisare").innerHTML += inmultire(x);
+			// innerHTML  = inmultire(x) - se afiseaza doar ultimul rezultat
+			// innerHTML += inmultire(x) - apar toate rezultatele, le concateneaza
+	}
+
+	</script>
+
+</body>
+</html>
